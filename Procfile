@@ -1,2 +1,2 @@
-web: ./bin/start-webserver
+web: ./bin/start
 worker: ./bin/start-scheduler
