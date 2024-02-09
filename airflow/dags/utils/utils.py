@@ -50,8 +50,8 @@ def process_search_api_response(element):
 
 
 def load_table(table_name, engine):
-    return pd.read_sql_table(table_name, engine)
-
+    with engine.connect() as conn:
+        return pd.read_sql_table(table_name, conn)
 
 def apply_normalization(df, normalization_map):
     """
