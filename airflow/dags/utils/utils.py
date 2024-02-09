@@ -51,6 +51,7 @@ def process_search_api_response(element):
 
 def load_table(table_name, engine):
     with engine as conn:
+        print(type(conn))
         return pd.read_sql_table(table_name, conn)
 
 
