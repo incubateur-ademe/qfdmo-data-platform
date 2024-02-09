@@ -11,8 +11,7 @@ def read_data_from_postgres(**kwargs):
     table_name = kwargs["table_name"]
     pg_hook = PostgresHook(postgres_conn_id='lvao-preprod')
     engine = pg_hook.get_sqlalchemy_engine()
-    with engine.connect() as conn:  # Create a connection context
-        df = load_table(table_name, conn)  # Pass the connection object
+    df = load_table(table_name, engine)  # Pass the connection object
     return df
 
 
