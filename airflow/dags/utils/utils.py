@@ -54,6 +54,7 @@ def process_search_api_response(element):
 
 def load_table(table_name, connection_id):
     pg_hook = PostgresHook(postgres_conn_id=connection_id)
+    print(pg_hook.get_sqlalchemy_engine())
     conn = pg_hook.get_connection(connection_id)
     conn_uri = f"postgresql://{conn.login}:{conn.password}@{conn.host}:{conn.port}/{conn.schema}"
     engine = create_engine(conn_uri)
