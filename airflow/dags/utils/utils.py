@@ -6,6 +6,9 @@ import requests
 import pandas as pd
 import re
 
+from airflow.providers.postgres.hooks.postgres import PostgresHook
+from sqlalchemy import create_engine
+
 
 def send_batch_to_api(batch):
     """
@@ -49,7 +52,11 @@ def process_search_api_response(element):
     return element, is_non_ok
 
 
-def load_table(table_name, engine):
+def load_table(table_name, connection_id):
+    pg_hook = PostgresHook(postgres_conn_id=connection_id)
+    conn = pg_hook.get_connection(connection_id)
+    conn_uri = f"postgresql://{conn.login}:{conn.password}@{conn.host}:{conn.port}/{conn.schema}"
+    engine = create_engine(conn_uri)
     return pd.read_sql_table(table_name, engine)
 
 
@@ -140,7 +147,11 @@ def formatted_string(string: str) -> str:
     return result
 
 
-def save_to_database(df, table_name, engine):
+def save_to_database(df, table_name, connection_id):
+    pg_hook = PostgresHook(postgres_conn_id=connection_id)
+    conn = pg_hook.get_connection(connection_id)
+    conn_uri = f"postgresql://{conn.login}:{conn.password}@{conn.host}:{conn.port}/{conn.schema}"
+    engine = create_engine(conn_uri)
     df.to_sql(table_name, engine, if_exists="replace", index=False)
 
 

@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from sqlalchemy import create_engine
 
 from utils.utils import load_table, normalize_nom, normalize_url, normalize_phone_number, normalize_email, \
     find_differences, save_to_database
@@ -9,9 +10,8 @@ from utils.utils import load_table, normalize_nom, normalize_url, normalize_phon
 
 def read_data_from_postgres(**kwargs):
     table_name = kwargs["table_name"]
-    pg_hook = PostgresHook(postgres_conn_id='lvao-preprod')
-    engine = pg_hook.get_sqlalchemy_engine()
-    df = load_table(table_name, engine)  # Pass the connection object
+
+    df = load_table(table_name, "lvao-preprod")
     return df
 
 
@@ -39,9 +39,7 @@ def normalize_and_find_differences(**kwargs):
 
 def save_results_to_database(**kwargs):
     df_cleaned = kwargs['ti'].xcom_pull(task_ids='normalize_and_find_differences')
-    pg_hook = PostgresHook(postgres_conn_id='lvao-preprod')
-    engine = pg_hook.get_sqlalchemy_engine()
-    save_to_database(df_cleaned, "lvao_manual_actors_updates", engine)
+    save_to_database(df_cleaned, "lvao_manual_actors_updates", "lvao-preprod")
 
 
 default_args = {
