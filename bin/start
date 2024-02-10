@@ -7,8 +7,7 @@ then
 fi
 
 # initialize the database
-airflow db init
-
+airflow db migrate
 # create an admin user
 airflow users create \
     --username $AIRFLOW_USERNAME \
@@ -20,9 +19,5 @@ airflow users create \
 
 # ln -s `pwd`/dags $AIRFLOW_HOME/dags
 
-airflow scheduler &
+airflow standalone
 
-# start the web server, default port is 8080
-echo "Starting the webserver..."
-port=${PORT:-80}
-airflow webserver --port $port --debug
