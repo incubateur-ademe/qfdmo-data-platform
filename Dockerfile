@@ -31,4 +31,4 @@ RUN airflow db init
 
 
 # Use the custom entrypoint script
-CMD ["airflow", "standalone"]
+CMD ["airflow", "standalone","--port","8080"]
