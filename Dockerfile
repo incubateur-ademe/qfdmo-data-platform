@@ -27,6 +27,8 @@ ENV AIRFLOW_DATABASE_PASSWORD=${AIRFLOW_DATABASE_PASSWORD} \
 
 EXPOSE 8080
 
-# Use the custom entrypoint script
-ENTRYPOINT ["/entrypoint.sh"]
+RUN airflow db init
 
+
+# Use the custom entrypoint script
+CMD ["airflow", "standalone"]
