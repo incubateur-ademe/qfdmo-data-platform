@@ -1,2 +1,0 @@
-services: docker compose up
-web: bash bin/dev-start

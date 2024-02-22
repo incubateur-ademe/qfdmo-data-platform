@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ ! $AIRFLOW__DATABASE__SQL_ALCHEMY_CONN ]]
-then
-  echo "missing env variable…"
-  exit 1
-fi
-
-airflow scheduler
