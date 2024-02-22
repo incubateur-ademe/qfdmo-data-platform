@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Initialize or upgrade the Airflow database before starting up
-airflow db upgrade
+airflow db migrate
 
 
 airflow scheduler &
