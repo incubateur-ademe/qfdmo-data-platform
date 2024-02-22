@@ -22,10 +22,10 @@ ENV AIRFLOW_DATABASE_PASSWORD=${AIRFLOW_DATABASE_PASSWORD} \
     AIRFLOW__CELERY__BROKER_URL=${AIRFLOW__CELERY__BROKER_URL} \
     AIRFLOW__CORE__SQL_ALCHEMY_CONN=${AIRFLOW__CORE__SQL_ALCHEMY_CONN}  \
     AIRFLOW_DATABASE_NAME=bitnami_airflow \
-    AIRFLOW_DATABASE_USERNAME=bn_airflow
+    AIRFLOW_DATABASE_USERNAME=bn_airflow \
+    AIRFLOW__WEBSERVER__PORT=8080
+
 
 # Use the custom entrypoint script
 ENTRYPOINT ["/entrypoint.sh"]
 
-# Default command to start Airflow webserver
-CMD ["airflow", "webserver"]

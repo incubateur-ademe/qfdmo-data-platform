@@ -11,4 +11,4 @@ if [ "$AIRFLOW_EXECUTOR" == "CeleryExecutor" ]; then
   airflow celery worker &
 fi
 
-exec "$@"
+airflow webserver
