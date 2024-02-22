@@ -23,7 +23,7 @@ ENV AIRFLOW_DATABASE_PASSWORD=${AIRFLOW_DATABASE_PASSWORD} \
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=${AIRFLOW__DATABASE__SQL_ALCHEMY_CONN}  \
     AIRFLOW_DATABASE_NAME=bitnami_airflow \
     AIRFLOW_DATABASE_USERNAME=bn_airflow \
-    AIRFLOW__WEBSERVER__PORT=8080
+    AIRFLOW__WEBSERVER__WEB_SERVER_PORT=8080
 
 EXPOSE 8080
 
@@ -31,4 +31,4 @@ RUN airflow db init
 
 
 # Use the custom entrypoint script
-CMD ["airflow", "standalone","--port","8080"]
+CMD ["airflow", "standalone"]
