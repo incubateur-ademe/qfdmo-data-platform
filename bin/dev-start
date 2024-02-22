@@ -1,5 +1,0 @@
-# déclaration des variables d'environnement définies dans le fichier .env
-export $(grep -v '^#' .env | xargs)
-
-airflow db migrate
-airflow standalone
