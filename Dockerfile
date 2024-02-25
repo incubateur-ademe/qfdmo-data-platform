@@ -3,6 +3,9 @@ FROM bitnami/airflow:latest
 
 COPY entrypoint.sh /entrypoint.sh
 
+COPY requirements.txt /requirements.txt
+
+RUN pip3 install --no-cache-dir -r /requirements.txt
 USER root
 RUN chmod +x /entrypoint.sh
 USER 1001
