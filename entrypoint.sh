@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 
-
-
-# ln -s `pwd`/dags $AIRFLOW_HOME/dags
+airflow celery worker &
 
 airflow scheduler &
 
@@ -11,3 +9,4 @@ airflow scheduler &
 echo "Starting the webserver..."
 port=${PORT:-8080}
 airflow webserver --port $port --debug
+
