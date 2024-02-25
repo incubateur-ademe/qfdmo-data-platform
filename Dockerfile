@@ -1,5 +1,5 @@
 # Use the Bitnami Airflow image
-FROM bitnami/airflow:latest
+FROM apache/airflow:latest
 
 COPY entrypoint.sh /entrypoint.sh
 
